@@ -6,19 +6,22 @@
   <title>ACTS Core — Development View (4+1)</title>
   <style>
     :root {
-      color-scheme: light dark;
-      --bg: #0f172a;
-      --panel: #111827;
-      --panel-soft: #1f2937;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --text: #e5e7eb;
-      --text-dim: #e2e8f0;
-      --border: #334155;
+      color-scheme: light;
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --panel-soft: #f8fafc;
+      --accent: #2563eb;
+      --accent-2: #16a34a;
+      --text: #0f172a;
+      --text-dim: #475569;
+      --border: #e2e8f0;
     }
 
     body {
-      margin: 0;
+      margin: 0 auto;
+      max-width: 210mm;
+      min-height: 297mm;
+      padding: 24mm 20mm;
       font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
@@ -26,9 +29,9 @@
     }
 
     header {
-      padding: 32px 40px 16px;
+      padding: 0 0 16px;
       border-bottom: 1px solid var(--border);
-      background: radial-gradient(circle at top left, #1e3a8a, transparent 55%);
+      background: transparent;
     }
 
     header h1 {
@@ -48,7 +51,7 @@
     }
 
     main {
-      padding: 24px 40px 40px;
+      padding: 24px 0 0;
       display: grid;
       gap: 24px;
     }
