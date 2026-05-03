@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en-GB">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,29 +74,16 @@
       box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
     }
 
-    .groups {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .group {
+    .tree {
+      margin: 0;
+      padding: 18px 20px;
       background: var(--panel-soft);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 14px 16px;
-    }
-
-    .group h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      color: var(--accent);
-    }
-
-    .group ul {
-      margin: 0;
-      padding-left: 18px;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
       color: var(--text-dim);
+      white-space: pre;
     }
 
     table {
@@ -138,176 +125,155 @@
   <header>
     <h1>ACTS Core — Development View (4+1)</h1>
     <p>
-      Góc nhìn phát triển (development view) mô tả cách tổ chức mã nguồn của ACTS
-      trong thư mục <code>Core/</code>. Đây là view thuộc mô hình 4+1, tập trung
-      vào cấu trúc module và cách tách gói ở mức triển khai.
+      The development view describes how ACTS organises source code under
+      <code>Core/</code>. This 4+1 view focuses on module structure and packaging
+      at implementation level.
     </p>
     <ul>
-      <li>Thư viện chính: <strong>ActsCore</strong> (khai báo trong <code>Core/CMakeLists.txt</code>).</li>
-      <li>Mã nguồn: <code>Core/src/*</code> và public headers trong <code>Core/include/Acts/*</code>.</li>
-      <li>Phạm vi: chỉ các module cốt lõi, không bao gồm Plugins/Fatras/Examples.</li>
+      <li>Main library: <strong>ActsCore</strong> (declared in <code>Core/CMakeLists.txt</code>).</li>
+      <li>Source code: <code>Core/src/*</code> with public headers in <code>Core/include/Acts/*</code>.</li>
+      <li>Scope: Core modules only, excluding Plugins/Fatras/Examples.</li>
     </ul>
   </header>
 
   <main>
     <section class="panel diagram">
       <div class="core-box">ActsCore (Core)</div>
-      <div class="groups">
-        <div class="group">
-          <h3>Hạ tầng</h3>
-          <ul>
-            <li>Definitions</li>
-            <li>Utilities</li>
-          </ul>
-        </div>
-        <div class="group">
-          <h3>Hình học &amp; vật liệu</h3>
-          <ul>
-            <li>Geometry</li>
-            <li>Surfaces</li>
-            <li>Material</li>
-            <li>MagneticField</li>
-          </ul>
-        </div>
-        <div class="group">
-          <h3>Dữ liệu &amp; điều hướng</h3>
-          <ul>
-            <li>EventData</li>
-            <li>Navigation</li>
-            <li>Propagator</li>
-          </ul>
-        </div>
-        <div class="group">
-          <h3>Thuật toán tái tạo</h3>
-          <ul>
-            <li>Seeding</li>
-            <li>Seeding2</li>
-            <li>SpacePointFormation2</li>
-            <li>TrackFinding</li>
-            <li>TrackFitting</li>
-            <li>Vertexing</li>
-            <li>AmbiguityResolution</li>
-          </ul>
-        </div>
-        <div class="group">
-          <h3>Hiển thị</h3>
-          <ul>
-            <li>Visualization</li>
-          </ul>
-        </div>
-      </div>
+      <pre class="tree">ActsCore (Core)
+├── Infrastructure
+│   ├── Definitions
+│   └── Utilities
+├── Geometry &amp; Materials
+│   ├── Geometry
+│   ├── Surfaces
+│   ├── Material
+│   └── MagneticField
+├── Event Data &amp; Navigation
+│   ├── EventData
+│   ├── Navigation
+│   └── Propagator
+├── Reconstruction Algorithms
+│   ├── Seeding
+│   ├── Seeding2
+│   ├── SpacePointFormation2
+│   ├── TrackFinding
+│   ├── TrackFitting
+│   ├── Vertexing
+│   └── AmbiguityResolution
+└── Visualisation
+    └── Visualization</pre>
       <p class="note">
-        Ghi chú: các nhóm chỉ nhằm biểu diễn mức tổ chức module; không hàm ý ràng buộc
-        phụ thuộc cụ thể giữa các module.
+        Note: the grouping indicates organisation only and does not express
+        explicit dependency constraints between modules.
       </p>
     </section>
 
     <section class="panel">
-      <h2>Danh mục module (Core/src)</h2>
+      <h2>Module inventory (Core/src)</h2>
       <table>
         <thead>
           <tr>
             <th>Module</th>
-            <th>Đường dẫn</th>
-            <th>Vai trò (từ tên thư mục)</th>
+            <th>Path</th>
+            <th>Role (from folder name)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>EventData</td>
             <td><code>Core/src/EventData</code></td>
-            <td>Mô hình dữ liệu sự kiện/tracking.</td>
+            <td>Event and tracking data models.</td>
           </tr>
           <tr>
             <td>Definitions</td>
             <td><code>Core/src/Definitions</code></td>
-            <td>Định nghĩa kiểu/khái niệm dùng chung.</td>
+            <td>Shared type and concept definitions.</td>
           </tr>
           <tr>
             <td>Geometry</td>
             <td><code>Core/src/Geometry</code></td>
-            <td>Hình học detector và cấu trúc hình học.</td>
+            <td>Detector geometry and structure.</td>
           </tr>
           <tr>
             <td>MagneticField</td>
             <td><code>Core/src/MagneticField</code></td>
-            <td>Mô hình trường từ.</td>
+            <td>Magnetic field models.</td>
           </tr>
           <tr>
             <td>Material</td>
             <td><code>Core/src/Material</code></td>
-            <td>Mô hình vật liệu và tương tác.</td>
+            <td>Material modelling and interactions.</td>
           </tr>
           <tr>
             <td>Navigation</td>
             <td><code>Core/src/Navigation</code></td>
-            <td>Điều hướng trong hình học.</td>
+            <td>Navigation within detector geometry.</td>
           </tr>
           <tr>
             <td>Propagator</td>
             <td><code>Core/src/Propagator</code></td>
-            <td>Lan truyền/quỹ đạo.</td>
+            <td>Trajectory propagation.</td>
           </tr>
           <tr>
             <td>Seeding</td>
             <td><code>Core/src/Seeding</code></td>
-            <td>Thuật toán tạo seed.</td>
+            <td>Seeding algorithms.</td>
           </tr>
           <tr>
             <td>Seeding2</td>
             <td><code>Core/src/Seeding2</code></td>
-            <td>Biến thể seeding thế hệ mới.</td>
+            <td>Next-generation seeding variants.</td>
           </tr>
           <tr>
             <td>SpacePointFormation2</td>
             <td><code>Core/src/SpacePointFormation2</code></td>
-            <td>Tạo điểm không gian cho chuỗi tái tạo.</td>
+            <td>Space-point formation for reconstruction chains.</td>
           </tr>
           <tr>
             <td>Surfaces</td>
             <td><code>Core/src/Surfaces</code></td>
-            <td>Bề mặt hình học.</td>
+            <td>Geometric surface representations.</td>
           </tr>
           <tr>
             <td>TrackFinding</td>
             <td><code>Core/src/TrackFinding</code></td>
-            <td>Tìm kiếm track.</td>
+            <td>Track finding.</td>
           </tr>
           <tr>
             <td>TrackFitting</td>
             <td><code>Core/src/TrackFitting</code></td>
-            <td>Fit track.</td>
+            <td>Track fitting.</td>
           </tr>
           <tr>
             <td>Utilities</td>
             <td><code>Core/src/Utilities</code></td>
-            <td>Tiện ích dùng chung.</td>
+            <td>Shared utilities.</td>
           </tr>
           <tr>
             <td>Vertexing</td>
             <td><code>Core/src/Vertexing</code></td>
-            <td>Tái tạo đỉnh.</td>
+            <td>Vertex reconstruction.</td>
           </tr>
           <tr>
             <td>Visualization</td>
             <td><code>Core/src/Visualization</code></td>
-            <td>Hiển thị hình học và dữ liệu.</td>
+            <td>Geometry and data visualisation.</td>
           </tr>
           <tr>
             <td>AmbiguityResolution</td>
             <td><code>Core/src/AmbiguityResolution</code></td>
-            <td>Giải quyết mơ hồ trong track.</td>
+            <td>Ambiguity resolution for tracks.</td>
           </tr>
         </tbody>
       </table>
       <p class="note">
-        Mô tả vai trò được rút gọn từ tên thư mục; xem mã nguồn để chi tiết.
+        Roles are summarised from folder names; refer to the source for details.
       </p>
     </section>
 
     <section class="panel footer">
-      <strong>Nguồn cấu trúc:</strong> <code>Core/CMakeLists.txt</code> (danh sách
-      <code>add_subdirectory</code> cho các module Core).
+      <strong>Structure source:</strong> <code>Core/CMakeLists.txt</code> (the
+      <code>add_subdirectory</code> list for Core modules).
     </section>
   </main>
 </body>
